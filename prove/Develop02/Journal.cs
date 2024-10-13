@@ -21,6 +21,8 @@ public class Journal {
         Console.WriteLine("Please include .txt at the end of your filename");
         string filename = Console.ReadLine();
         FileHandler fileHandler = new();
+        string result = fileHandler.Write(filename, entries);
+        Console.WriteLine(result);
     }
     public void LoadFromFile() {
         Console.WriteLine("What is the filename?");

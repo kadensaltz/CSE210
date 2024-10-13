@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 
 class FileHandler {
-    public void Write(string filename, List<Entry> entries) {
-        using (StreamWriter writer = new StreamWriter(filename)) {
-            foreach (Entry entry in entries) {
-                writer.WriteLine($"{entry.Date} - Prompt: {entry.journalEntries} \n {entry.Response}");
+    public string Write(string filename, List<Entry> entries) {
+        try {
+            using (StreamWriter outputFile = new StreamWriter(filename)) {
+                foreach (Entry entry in entries) {
+                    outputFile.WriteLine($"{entry.Date} - Prompt: {entry.journalEntries} \n {entry.Response}");
+                }
             }
+            return "File saved successfully.";
+        } catch (Exception ex) {
+            return $"An error occurred: {ex.Message}";
         }
     }
 
