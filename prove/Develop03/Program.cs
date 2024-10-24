@@ -4,6 +4,18 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Develop03 World!");
+        Scripture scripture = new Scripture();
+        scripture.GetReference();
+        bool isFinished = false;
+
+        do
+        {
+            scripture.Display();
+            string response = Console.ReadLine();
+            if (response == "quit" || scripture.Status())
+            {
+                isFinished = true;
+            }
+        } while (!isFinished);
     }
 }
