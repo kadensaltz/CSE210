@@ -7,7 +7,7 @@ class FileHandler {
         try {
             using (StreamWriter outputFile = new StreamWriter(filename)) {
                 foreach (Entry entry in entries) {
-                    outputFile.WriteLine($"{entry.Date} - Prompt: {entry.journalEntries} \n {entry.Response}");
+                    outputFile.WriteLine($"{entry._date} - Prompt: {entry._journalEntries} \n {entry._response}");
                 }
             }
             return "File saved successfully.";
@@ -24,9 +24,9 @@ class FileHandler {
                 string[] parts = line.Split(new[] { " - Prompt: ", "\n" }, StringSplitOptions.None);
                 if (parts.Length >= 3) {
                     Entry entry = new Entry {
-                        Date = DateTime.Parse(parts[0]),
-                        journalEntries = parts[1],
-                        Response = parts[2]
+                        _date = DateTime.Parse(parts[0]),
+                        _journalEntries = parts[1],
+                        _response = parts[2]
                     };
                     entries.Add(entry);
                 }

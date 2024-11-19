@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 class PromptManager {
 
-    List<string> journalEntries = new List<string>
+    List<string> _journalEntries = new List<string>
     {
         "What is one new thing you learned today?",
         "Describe a recent challenge you overcame and how you did it.",
@@ -29,7 +29,7 @@ class PromptManager {
 
     public string GetRandomJournalEntry() {
         Random random = new Random();
-        int index = random.Next(journalEntries.Count);
-        return journalEntries[index];
+        int index = random.Next(_journalEntries.Count);
+        return _journalEntries[index];
     }
 }

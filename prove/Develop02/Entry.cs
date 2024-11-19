@@ -1,14 +1,14 @@
 using System;
 
 public class Entry {
-    public string journalEntries;
-    public string Response;
-    public DateTime Date;
+    public string _journalEntries;
+    public string _response;
+    public DateTime _date;
 
     public void CreateEntry(string JournalPrompt) {
-        journalEntries = JournalPrompt;
+        _journalEntries = JournalPrompt;
         Console.WriteLine(JournalPrompt);
-        Response = Console.ReadLine();
-        Date = DateTime.Now;
+        _response = Console.ReadLine();
+        _date = DateTime.Now;
     }
 }

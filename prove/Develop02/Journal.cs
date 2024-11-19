@@ -3,17 +3,17 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks.Dataflow;
 
 public class Journal {
-    List<Entry> entries = new();
+    List<Entry> _entries = new();
     public void AddEntry() {
         PromptManager promptManager = new();
         string prompt = promptManager.GetRandomJournalEntry();
         Entry entry = new();
         entry.CreateEntry(prompt);
-        entries.Add(entry);
+        _entries.Add(entry);
     }
     public void DisplayEntries() {
-        foreach (Entry entry in entries) {
-            Console.WriteLine($"{entry.Date} - Prompt: {entry.journalEntries} \n {entry.Response}");
+        foreach (Entry entry in _entries) {
+            Console.WriteLine($"{entry._date} - Prompt: {entry._journalEntries} \n {entry._response}");
         }
     }
     public void SaveToFile() {
@@ -21,14 +21,14 @@ public class Journal {
         Console.WriteLine("Please include .txt at the end of your filename");
         string filename = Console.ReadLine();
         FileHandler fileHandler = new();
-        string result = fileHandler.Write(filename, entries);
+        string result = fileHandler.Write(filename, _entries);
         Console.WriteLine(result);
     }
     public void LoadFromFile() {
         Console.WriteLine("What is the filename?");
         string filename = Console.ReadLine();
         FileHandler fileHandler = new();
-        entries = fileHandler.Read(filename);
+        _entries = fileHandler.Read(filename);
         Console.WriteLine("File loaded successfully");
     }
 }
