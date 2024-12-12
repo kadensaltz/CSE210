@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.IO;
 
 public abstract class Goal
@@ -9,29 +7,29 @@ public abstract class Goal
     protected string _findGoalName = "What is the name of your goal? ";
     protected string _findGoalDescription = "What is a short description of it? ";
     protected string _findGoalPoints = "How many points is this goal worth? ";
-    private static int earnedPoints = 0;
-    private static List<Goal> goals = new List<Goal>();
+    private static int _earnedPoints = 0;
+    private static List<Goal> _goals = new List<Goal>();
 
     public static int GetEarnedPoints()
     {
-        return earnedPoints;
+        return _earnedPoints;
     }
 
-    public static void AddEarnedPoints(int points)
+    public static void AddPoints(int points)
     {
-        earnedPoints += points;
+        _earnedPoints += points;
     }
 
     public static void AddGoal(Goal goal)
     {
-        goals.Add(goal);
+        _goals.Add(goal);
     }
 
     public static void ListGoals()
     {
         Console.WriteLine("The goals are: ");
         int i = 1;
-        foreach (Goal goal in goals)
+        foreach (Goal goal in _goals)
         {
             Console.WriteLine($"{i}. {goal.FormatForList()}");
             i++;
@@ -42,18 +40,18 @@ public abstract class Goal
     {
         using (StreamWriter outputFile = new StreamWriter(fileName))
         {
-            outputFile.WriteLine(earnedPoints);
-            foreach (Goal goal in goals)
+            outputFile.WriteLine(_earnedPoints);
+            foreach (Goal goal in _goals)
             {
                 outputFile.WriteLine(goal.FormatForFile());
             }
         }
     }
 
-    public static void LoadGoals(string filename)
+     public static void LoadGoals(string filename)
     {
         string[] lines = System.IO.File.ReadAllLines(filename);
-        earnedPoints = int.Parse(lines[0]);
+        _earnedPoints = int.Parse(lines[0]);
 
         foreach (string line in lines[1..])
         {
@@ -80,7 +78,7 @@ public abstract class Goal
             }
 
             newGoal.TakeFromFile(parts);
-            goals.Add(newGoal);
+            _goals.Add(newGoal);
         }
     }
 
@@ -88,22 +86,22 @@ public abstract class Goal
     {
         Console.WriteLine("The goals are: ");
         int i = 1;
-        foreach (Goal goal in goals)
+        foreach (Goal goal in _goals)
         {
             Console.WriteLine($"{i}. {goal.FormatForList()}");
             i++;
         }
         Console.WriteLine("What goal did you accomplish? ");
         int goalNumber = int.Parse(Console.ReadLine());
-        Goal userGoal = goals[goalNumber - 1];
+        Goal userGoal = _goals[goalNumber - 1];
         int pointsEarned = userGoal.recordGoal();
-        AddEarnedPoints(pointsEarned);
+        AddPoints(pointsEarned);
         Console.WriteLine($"Congratulations! You have earned {pointsEarned} points!");
     }
 
 public static void redeemPoints()
 {
-    Console.WriteLine($"You have {earnedPoints} points.");
+    Console.WriteLine($"You have {_earnedPoints} points.");
     Console.WriteLine("Here is a list of available rewards:");
     Console.WriteLine("\t1. 5 points - watch an episode of your favorite show");
     Console.WriteLine("\t2. 10 points - listen to your favorite album");
@@ -126,10 +124,10 @@ public static void redeemPoints()
         case "5": cost = 25; reward = "buy yourself something you've been wanting"; break;
         default: Console.WriteLine("Invalid choice. No points deducted"); return;
     }
-    if (earnedPoints >= cost)
+    if (_earnedPoints >= cost)
     {
-        earnedPoints = earnedPoints - cost;
-        Console.WriteLine($"You have redeemed {reward}.\nYou now have {earnedPoints} points remaining.");
+        _earnedPoints = _earnedPoints - cost;
+        Console.WriteLine($"You have redeemed {reward}.\nYou now have {_earnedPoints} points remaining.");
     }
     else
     {

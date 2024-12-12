@@ -19,7 +19,7 @@ class Program
         job2._endYear = "2023";
 
         Resume resume = new Resume();
-        resume._name = "Allison ROse";
+        resume._name = "Allison Rose";
 
         resume._jobs.Add(job1);
         resume._jobs.Add(job2);

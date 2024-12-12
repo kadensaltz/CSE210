@@ -76,6 +76,7 @@ class Program
                 }
                 case "4":
                 {
+                    //Goal._goals = new List<Goal>();
                     Console.WriteLine("What is the name the file? ");
                     string fileName = Console.ReadLine();
                     Goal.LoadGoals(fileName);

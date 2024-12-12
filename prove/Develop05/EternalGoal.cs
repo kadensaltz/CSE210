@@ -2,41 +2,41 @@ using System;
 
 public class EternalGoal : Goal
 {
-    private string goalName;
-    private string goalDescription;
-    private int goalPoints;
+    private string _goalName;
+    private string _goalDescription;
+    private int _goalPoints;
 
     public override void MakeGoal()
     {
         Console.Write(_findGoalName);
-        goalName = Console.ReadLine();
+        _goalName = Console.ReadLine();
         Console.Write(_findGoalDescription);
-        goalDescription = Console.ReadLine();
+        _goalDescription = Console.ReadLine();
         Console.WriteLine("We recommend rewarding 1 point for easy goals, 3 points for medium goals, and 5 points for hard goals.");
         Console.Write(_findGoalPoints);
-        goalPoints = int.Parse(Console.ReadLine());
+        _goalPoints = int.Parse(Console.ReadLine());
 
         Goal.AddGoal(this);
     }
 
     public override string FormatForFile()
     {
-        return $"EternalGoal:{goalName};{goalDescription};{goalPoints}";
+        return $"EternalGoal:{_goalName};{_goalDescription};{_goalPoints}";
     }
     public override string FormatForList()
     {
-        return $"[ ] {goalName} ({goalDescription})";
+        return $"[ ] {_goalName} ({_goalDescription})";
     }
 
     public override int recordGoal()
     {   
-        return goalPoints;
+        return _goalPoints;
     }
 
     public override void TakeFromFile(string[] parts)
     {
-        goalName = parts[1];
-        goalDescription = parts[2];
-        goalPoints = int.Parse(parts[3]);
+        _goalName = parts[1];
+        _goalDescription = parts[2];
+        _goalPoints = int.Parse(parts[3]);
     }
 }
